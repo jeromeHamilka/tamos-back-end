@@ -17,8 +17,10 @@ export class PostService {
 
   async addPost(post: AddPostDto): Promise<PostEntity> {
     const newPost = this.postRepository.create(post);
-    console.log('newPost: ', newPost);
-    console.log('post: ', post);
     return await this.postRepository.save(newPost);
+  }
+
+  async deletePost(id: number) {
+    return await this.postRepository.delete(id);
   }
 }

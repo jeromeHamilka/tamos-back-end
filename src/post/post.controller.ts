@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { PostService } from './post.service';
 import { PostEntity } from './entity/post.entity';
 import { AddPostDto } from './dto/add-post.dto';
@@ -15,5 +23,10 @@ export class PostController {
   @Post()
   async addPost(@Body() addPostDto: AddPostDto): Promise<PostEntity> {
     return await this.postService.addPost(addPostDto);
+  }
+
+  @Delete(':id')
+  async deleteCv(@Param('id', ParseIntPipe) id: number) {
+    return this.postService.deletePost(id);
   }
 }

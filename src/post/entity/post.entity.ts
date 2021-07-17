@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TimestampEntites } from '../../generics/timestamp.entites';
+import { UserEntity } from '../../user/entity/user.entity';
 
 @Entity('post')
 export class PostEntity extends TimestampEntites {
@@ -10,4 +11,11 @@ export class PostEntity extends TimestampEntites {
     length: 1000,
   })
   content: string;
+
+  @ManyToOne((type) => UserEntity, (user) => user.posts, {
+    cascade: ['insert', 'update'],
+    nullable: true,
+    eager: true,
+  })
+  user: UserEntity;
 }
